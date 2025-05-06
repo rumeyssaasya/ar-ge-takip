@@ -39,37 +39,41 @@ class NumuneTakipApp:
         tk.Label(frame, text="Numune Kodu").grid(row=0, column=0)
         self.entry_kod = tk.Entry(frame)
         self.entry_kod.grid(row=0, column=1)
+         
+        tk.Label(frame, text="Proje Adı").grid(row=1, column=0)
+        self.entry_proje_adi = tk.Entry(frame)
+        self.entry_proje_adi.grid(row=1, column=1)
 
-        tk.Label(frame, text="Numune Adı").grid(row=1, column=0)
+        tk.Label(frame, text="Numune Adı").grid(row=2, column=0)
         self.entry_ad = tk.Entry(frame)
-        self.entry_ad.grid(row=1, column=1)
+        self.entry_ad.grid(row=2, column=1)
 
-        tk.Label(frame, text="Bulunduğu Raf").grid(row=2, column=0)
+        tk.Label(frame, text="Bulunduğu Raf").grid(row=3, column=0)
         self.entry_raf = tk.Entry(frame)
-        self.entry_raf.grid(row=2, column=1)
+        self.entry_raf.grid(row=3, column=1)
 
-        tk.Label(frame, text="Miktar - Birim").grid(row=3, column=0)
+        tk.Label(frame, text="Miktar - Birim").grid(row=4, column=0)
         self.entry_miktar = tk.Entry(frame, width=10)
-        self.entry_miktar.grid(row=3, column=1, sticky="w")
+        self.entry_miktar.grid(row=4, column=1, sticky="w")
 
         self.combo_birim = ttk.Combobox(frame, values=["g", "kg", "ton", "adet", "L"], width=5)
-        self.combo_birim.grid(row=3, column=1, sticky="e")
-        self.combo_birim.current(1)
+        self.combo_birim.grid(row=4, column=1, sticky="e")
+        self.combo_birim.current(0)
 
-        tk.Label(frame, text="Geldiği Tarih").grid(row=4, column=0)
+        tk.Label(frame, text="Geldiği Tarih").grid(row=5, column=0)
         self.entry_tarih = DateEntry(frame, date_pattern="dd.mm.yyyy", locale='tr_TR')  # Türkçe için locale
-        self.entry_tarih.grid(row=4, column=1)
+        self.entry_tarih.grid(row=5, column=1)
 
-        tk.Label(frame, text="Geldiği Yer").grid(row=5, column=0)
+        tk.Label(frame, text="Geldiği Yer").grid(row=6, column=0)
         self.entry_yer = tk.Entry(frame)
-        self.entry_yer.grid(row=5, column=1)
+        self.entry_yer.grid(row=6, column=1)
 
-        tk.Label(frame, text="Kod/Ad Ara").grid(row=6, column=0)
+        tk.Label(frame, text="Kod/Ad Ara").grid(row=7, column=0)
         self.entry_ara = tk.Entry(frame)
-        self.entry_ara.grid(row=6, column=1)
+        self.entry_ara.grid(row=7, column=1)
 
         btn_ara = tk.Button(frame, text="Ara", command=self.search_sample)
-        btn_ara.grid(row=6, column=2)
+        btn_ara.grid(row=7, column=2)
 
         btn_frame = tk.Frame(self.parent)
         btn_frame.pack(pady=10)
@@ -82,12 +86,24 @@ class NumuneTakipApp:
         tk.Button(btn_frame, text="Tüm Numuneleri Listele", command=self.list_all_samples).grid(row=0, column=5,padx=5)
         tk.Button(btn_frame, text="Detay", command=self.detay_goster).grid(row=0, column=6,padx=5)
 
-        self.tree = ttk.Treeview(self.parent, columns=("Kod", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Yer"),
-                                 show="headings")
-        self.tree.pack(pady=10)
+        column_defs = [
+            ("Kod", 80),
+            ("Proje Adı", 150),
+            ("Ad", 120),
+            ("Raf", 60),
+            ("Miktar", 70),
+            ("Birim", 60),
+            ("Tarih", 100),
+            ("Yer", 120)
+        ]
 
-        for col in self.tree["columns"]:
-            self.tree.heading(col, text=col)
+        self.tree = ttk.Treeview(self.parent, columns=[col[0] for col in column_defs], show="headings")
+        self.tree.pack(pady=7, fill="x")
+
+        for col_name, width in column_defs:
+            self.tree.heading(col_name, text=col_name)
+            self.tree.column(col_name, width=width, anchor="w")  # anchor="w" sola hizalar
+
             # Treeview seçim olayı
         self.tree.bind("<<TreeviewSelect>>", self.on_tree_select)
 
@@ -96,31 +112,34 @@ class NumuneTakipApp:
         if selected_item:
             item = self.tree.item(selected_item[0])
             values = item['values']
-
-            # Seçili demirbaş bilgilerini form alanlarına doldur
+            
             self.entry_kod.delete(0, tk.END)
             self.entry_kod.insert(0, values[0])
 
+            self.entry_proje_adi.delete(0, tk.END)
+            self.entry_proje_adi.insert(0, values[1])
+
             self.entry_ad.delete(0, tk.END)
-            self.entry_ad.insert(0, values[1])
+            self.entry_ad.insert(0, values[2])
 
             self.entry_raf.delete(0, tk.END)
-            self.entry_raf.insert(0, values[2])
+            self.entry_raf.insert(0, values[3])
 
             self.entry_miktar.delete(0, tk.END)
-            self.entry_miktar.insert(0, values[3])
+            self.entry_miktar.insert(0, values[4])
 
-            self.combo_birim.set(values[4])
+            self.combo_birim.set(values[5])
 
             self.entry_tarih.delete(0, tk.END)
-            self.entry_tarih.insert(0, values[5])
+            self.entry_tarih.insert(0, values[6])
 
             self.entry_yer.delete(0, tk.END)
-            self.entry_yer.insert(0, values[6])
+            self.entry_yer.insert(0, values[7])
 
     def clear_entries(self):
         """Tüm giriş alanlarını temizler"""
         self.entry_kod.delete(0, tk.END)
+        self.entry_proje_adi.delete(0, tk.END)
         self.entry_ad.delete(0, tk.END)
         self.entry_raf.delete(0, tk.END)
         self.entry_miktar.delete(0, tk.END)
@@ -152,6 +171,7 @@ class NumuneTakipApp:
     def add_sample(self):
         try:
             kod = self.entry_kod.get().strip()
+            proje_adi=self.entry_proje_adi.get().strip()
             ad = self.entry_ad.get().strip()
             raf = self.entry_raf.get().strip()
             miktar = self.entry_miktar.get().strip().replace(',', '.')
@@ -159,14 +179,14 @@ class NumuneTakipApp:
             tarih = self.entry_tarih.get().strip()
             yer = self.entry_yer.get().strip()
 
-            if not all([kod, ad, raf, miktar, birim, tarih, yer]):
+            if not all([kod, proje_adi, ad, raf, miktar, birim, tarih, yer]):
                 messagebox.showerror("Hata", "Lütfen tüm alanları doldurun!")
                 return
 
             miktar = float(miktar)
 
 
-            values = (kod, ad, raf, miktar, birim, tarih, yer)
+            values = (kod, proje_adi, ad, raf, miktar, birim, tarih, yer)
             success, message = add_sample(values)  # Burada success ve message'ı yakalıyoruz
 
             if success:
@@ -191,6 +211,7 @@ class NumuneTakipApp:
 
             # Mevcut kodu al
             kod = self.entry_kod.get().strip()
+            proje_adi=self.entry_proje_adi.get().strip()
             ad = self.entry_ad.get().strip()
             raf = self.entry_raf.get().strip()
             miktar = self.entry_miktar.get().strip()
@@ -198,14 +219,14 @@ class NumuneTakipApp:
             tarih = self.entry_tarih.get().strip()
             yer = self.entry_yer.get().strip()
 
-            if not all([kod, ad, raf, miktar, birim, tarih, yer]):
+            if not all([kod, proje_adi, ad, raf, miktar, birim, tarih, yer]):
                 messagebox.showerror("Hata", "Lütfen tüm alanları doldurun!")
                 return
 
             miktar = float(miktar)
 
-            # 7 parametre: 6 güncellenecek alan + 1 WHERE koşulu (kod)
-            values = (kod,ad, raf, miktar, birim, tarih, yer, kod)
+            
+            values = (kod, proje_adi, ad, raf, miktar, birim, tarih, yer, kod)
 
             if update_sample(values):
                 log_ekle("numuneler", kod, "GÜNCELLEME", f"Numune güncellendi: {kod}")
@@ -244,6 +265,7 @@ class NumuneTakipApp:
     def clear_entries(self):
         """Clear all input fields"""
         self.entry_kod.delete(0, tk.END)
+        self.entry_proje_adi.delete(0,tk.END)
         self.entry_ad.delete(0, tk.END)
         self.entry_raf.delete(0, tk.END)
         self.entry_miktar.delete(0, tk.END)
@@ -261,7 +283,7 @@ class NumuneTakipApp:
         try:
             if self.conn:  # Bağlantı var mı kontrolü
                 cursor = self.conn.cursor()
-                cursor.execute("SELECT kod, ad, raf, miktar, birim, geldiği_tarih, geldiği_yer FROM numuneler")
+                cursor.execute("SELECT kod, proje_adi, ad, raf, miktar, birim, geldiği_tarih, geldiği_yer FROM numuneler")
                 samples = cursor.fetchall()
 
                 for sample in samples:
@@ -313,18 +335,19 @@ class NumuneTakipApp:
 
         pdf = FPDF()
         pdf.add_page()
-
+        image =r"C:\Users\aciog\Desktop\Kardökmak Ar-Ge\Ar-Ge-_App\assets\atent.jpg"
+        pdf.image(image, x=0, y=0, w=210, h=297)
         try:
             pdf.add_font('Arial', '', 'arial.ttf', uni=True)
             pdf.set_font('Arial', '', 10)
         except RuntimeError:
             pdf.set_font('Helvetica', '', 10)  # Arial yoksa alternatif font
-
+        pdf.set_y(30)
         pdf.cell(200, 10, "Arama Sonucu - Numune Listesi", ln=True, align='C')
         pdf.ln(10)
 
-        headers = ["Kod", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Yer"]
-        column_widths = [30, 40, 20, 20, 20, 30, 40]
+        headers = ["Kod","Proje Adi", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Yer"]
+        column_widths = [20, 20, 20, 20, 20, 10, 20, 20]
 
         # Başlık satırı
         for i in range(len(headers)):
@@ -358,8 +381,8 @@ class NumuneTakipApp:
         pdf.cell(200, 10, "Numune Listesi", ln=True, align='C')
         pdf.ln(10)
 
-        headers = ["Kod", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Yer"]
-        column_widths = [30, 40, 20, 20, 20, 30, 40]
+        headers = ["Kod","Proje Adi", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Yer"]
+        column_widths = [30, 30, 30, 20, 20, 20, 30, 30]
 
         for i in range(len(headers)):
             pdf.cell(column_widths[i], 10, headers[i], border=1, align='C')

@@ -27,6 +27,7 @@ def create_tables():
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS numuneler (
                 kod TEXT,
+                proje_adi TEXT,
                 ad TEXT,
                 raf TEXT,
                 miktar REAL,
@@ -138,8 +139,8 @@ def add_sample(values):
         
         # Yeni numuneyi ekle
         cursor.execute('''
-            INSERT INTO numuneler (kod, ad, raf, miktar, birim, geldiği_tarih, geldiği_yer)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO numuneler (kod, proje_adi, ad, raf, miktar, birim, geldiği_tarih, geldiği_yer)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ''', values)
         conn.commit()
         return True, f"'{kod}' kodlu numune başarıyla eklendi"
@@ -166,7 +167,7 @@ def update_sample(values):
     try:
         cursor.execute('''
             UPDATE numuneler
-            SET kod=?, ad=?, raf=?, miktar=?, birim=?, geldiği_tarih=?, geldiği_yer=?
+            SET kod=?, proje_adi=?, ad=?, raf=?, miktar=?, birim=?, geldiği_tarih=?, geldiği_yer=?
             WHERE kod=?
         ''', values)
         conn.commit()
@@ -196,24 +197,26 @@ def delete_sample(kod):
 def search_samples(conn, search_text):
     cursor = conn.cursor()
     cursor.execute('''
-        SELECT kod, ad, raf, miktar, birim, geldiği_tarih, geldiği_yer
+        SELECT kod, proje_adi, ad, raf, miktar, birim, geldiği_tarih, geldiği_yer
         FROM numuneler
         WHERE kod LIKE ?
            OR ad LIKE ?
-    ''', (f"%{search_text}%", f"%{search_text}%"))
+                OR proje_adi LIKE ?
+    ''', (f"%{search_text}%", f"%{search_text}%"), f"%{search_text}%")
     return cursor.fetchall()
 
 
 def get_all_samples():
-    """Tüm numuneleri getirir"""
+    """Tüm numuneleri getirir (proje adına göre alfabetik sıralı)"""
     conn, cursor = veritabani_baglantisi()
     if conn is None or cursor is None:
         return []
 
     try:
         cursor.execute('''
-            SELECT kod, ad, raf, miktar, birim, geldiği_tarih, geldiği_yer 
+            SELECT kod, proje_adi, ad, raf, miktar, birim, geldiği_tarih, geldiği_yer 
             FROM numuneler
+            ORDER BY proje_adi ASC
         ''')
         return cursor.fetchall()
     except Exception as e:
@@ -221,6 +224,7 @@ def get_all_samples():
         return []
     finally:
         conn.close()
+
 
 ##########        MALZEME İŞLEMLERİ
 

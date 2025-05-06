@@ -48,14 +48,15 @@ def uygulamayi_baslat():
 # Giriş ekranı
 giris_pencere = tk.Tk()
 giris_pencere.title("Kardökmak Ar-Ge - Giriş")
-giris_pencere.geometry("1281x484")  # Pencere boyutu eklendi
+giris_pencere.geometry("500x500")  # Pencere boyutu eklendi
 
 # Logo için global referans
 logo_img = None
 
 try:
-    img = Image.open("C:/Users/aciog/Desktop/Kardökmak Ar-Ge/Ar-Ge-_App/assets/kardökmak1.png")
-    #img = img.resize((300, 300))
+    
+    img = Image.open("C:/Users/aciog/Desktop/Kardökmak Ar-Ge/Ar-Ge-_App/assets/arge.jpg")
+    img = img.resize((400, 400))
     logo_img = ImageTk.PhotoImage(img)
     
     etiket = tk.Label(giris_pencere, image=logo_img)
