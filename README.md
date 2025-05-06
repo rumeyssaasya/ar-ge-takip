@@ -11,6 +11,7 @@
 - PDF çıktısı alma
 - Giriş ekranında logo desteği
 
-![image](https://github.com/user-attachments/assets/a9e1b014-3bba-4cd0-9ced-1a1d514d4c9c)
+![image](https://github.com/user-attachments/assets/fa6df00b-d784-4400-826a-e2427c0f6775)
+
 
 
