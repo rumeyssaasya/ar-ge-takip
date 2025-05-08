@@ -68,7 +68,7 @@ class NumuneTakipApp:
         self.entry_yer = tk.Entry(frame)
         self.entry_yer.grid(row=6, column=1)
 
-        tk.Label(frame, text="Kod/Ad Ara").grid(row=7, column=0)
+        tk.Label(frame, text="Kod/Proje/Ad Ara").grid(row=7, column=0)
         self.entry_ara = tk.Entry(frame)
         self.entry_ara.grid(row=7, column=1)
 
@@ -335,8 +335,7 @@ class NumuneTakipApp:
 
         pdf = FPDF()
         pdf.add_page()
-        image =r"C:\Users\aciog\Desktop\Kardökmak Ar-Ge\Ar-Ge-_App\assets\atent.jpg"
-        pdf.image(image, x=0, y=0, w=210, h=297)
+
         try:
             pdf.add_font('Arial', '', 'arial.ttf', uni=True)
             pdf.set_font('Arial', '', 10)
@@ -347,7 +346,7 @@ class NumuneTakipApp:
         pdf.ln(10)
 
         headers = ["Kod","Proje Adi", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Yer"]
-        column_widths = [20, 20, 20, 20, 20, 10, 20, 20]
+        column_widths = [30, 35, 35, 15, 15, 10, 20, 30]
 
         # Başlık satırı
         for i in range(len(headers)):
@@ -382,7 +381,7 @@ class NumuneTakipApp:
         pdf.ln(10)
 
         headers = ["Kod","Proje Adi", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Yer"]
-        column_widths = [30, 30, 30, 20, 20, 20, 30, 30]
+        column_widths = [30, 35, 35, 15, 15, 10, 20, 30]
 
         for i in range(len(headers)):
             pdf.cell(column_widths[i], 10, headers[i], border=1, align='C')
@@ -408,7 +407,7 @@ class NumuneTakipApp:
             messagebox.showinfo("Bilgi", "Veritabanında numune bulunamadı!")
 
     def detay_goster(self):
-        DOSYA_KLASORU = r"C:\Users\aciog\Desktop\proje"
+        DOSYA_KLASORU = r"C:\Users\beyda\Desktop\KARDOKMAK\Numune_Boluculer"
         secilen = self.tree.focus()
         if not secilen:
             messagebox.showwarning("Uyarı", "Lütfen bir satır seçin.")

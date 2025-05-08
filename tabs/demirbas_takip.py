@@ -279,7 +279,7 @@ class DemirbasTakipApp:
 
         # Sütun başlıkları
         headers = ["Kod", "Ad", "Marka", "Alim Tarihi", "Durum"]
-        col_widths = [30, 50, 40, 40, 30]  # 5 sütun için
+        col_widths = [40, 50, 45, 30, 25]   # 5 sütun için
 
         # Başlık satırı
         for i in range(len(headers)):
@@ -301,35 +301,36 @@ class DemirbasTakipApp:
         if not file_path:
             return
 
-        samples = get_all_demirbaslar(self.conn)
-        if not samples:
+        demirbaslar = get_all_demirbaslar()
+        if not demirbaslar:
             messagebox.showinfo("Bilgi", "Veritabanında kayıtlı demirbaş bulunamadı!")
             return
 
         pdf = FPDF()
         pdf.add_page()
-        pdf.add_font('DejaVu', '', 'DejaVuSans.ttf', uni=True)
-        pdf.set_font('DejaVu', '', 14)
-        pdf.cell(200, 10, "Demirbaş Listesi", ln=True, align='C')
-        pdf.ln(10)
+        try:
+            pdf.add_font('DejaVu', '', 'DejaVuSans.ttf', uni=True)
+            pdf.set_font('DejaVu', '', 14)
+        except:
+            pdf.set_font("Arial", size=14)  # Fallback font
 
         headers = ["Kod", "Ad", "Marka", "Alım Tarihi", "Durum"]
-        column_widths = [25, 40, 30, 35, 25, 30, 35, 20]
+        column_widths = [40, 50, 45, 30, 25]
 
         for i in range(len(headers)):
             pdf.cell(column_widths[i], 10, headers[i], border=1, align='C')
         pdf.ln()
 
-        for row in samples:
+        for row in demirbaslar:
             for i in range(len(row)):
                 pdf.cell(column_widths[i], 10, str(row[i]), border=1, align='C')
             pdf.ln()
 
         pdf.output(file_path)
-        messagebox.showinfo("Başarı", f"Tüm demirbaşlar PDF olarak kaydedildi: {file_path}")   
+        messagebox.showinfo("Başarı", f"Tüm demirbaşlar PDF olarak kaydedildi: {file_path}")
 
     def detay_goster(self):
-        DOSYA_KLASORU = r"C:\Users\aciog\Desktop\proje"
+        DOSYA_KLASORU = r"C:\Users\beyda\Desktop\KARDOKMAK\Numune_Boluculer"
         secilen = self.tree.focus()
         if not secilen:
             messagebox.showwarning("Uyarı", "Lütfen bir satır seçin.")

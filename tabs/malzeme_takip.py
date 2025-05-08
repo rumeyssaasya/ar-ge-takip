@@ -314,7 +314,7 @@ class MalzemeTakipApp:
         pdf.ln(10)
 
         headers = ["Kod", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Firma"]
-        column_widths = [30, 40, 20, 20, 20, 30, 40]
+        column_widths = [30, 40, 20, 20, 15, 25, 40]
 
         for i in range(len(headers)):
             pdf.cell(column_widths[i], 10, headers[i], border=1, align='C')
@@ -345,7 +345,7 @@ class MalzemeTakipApp:
         pdf.ln(10)
 
         headers = ["Kod", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Firma"]
-        column_widths = [30, 40, 20, 20, 20, 30, 40]
+        column_widths = [30, 40, 20, 20, 15, 25, 40]
 
         for i in range(len(headers)):
             pdf.cell(column_widths[i], 10, headers[i], border=1, align='C')
@@ -372,7 +372,7 @@ class MalzemeTakipApp:
     
 
     def detay_goster(self):
-        DOSYA_KLASORU = r"C:\Users\aciog\Desktop\proje"
+        DOSYA_KLASORU = r"C:\Users\beyda\Desktop\KARDOKMAK\Numune_Boluculer"
         secilen = self.tree.focus()
         if not secilen:
             messagebox.showwarning("Uyarı", "Lütfen bir satır seçin.")

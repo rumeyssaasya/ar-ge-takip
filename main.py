@@ -55,7 +55,7 @@ logo_img = None
 
 try:
     
-    img = Image.open("C:/Users/aciog/Desktop/Kardökmak Ar-Ge/Ar-Ge-_App/assets/arge.jpg")
+    img = Image.open("C:/Users/beyda/Desktop/KARDOKMAK/ar-ge-takip/assets/arge.jpg")
     img = img.resize((400, 400))
     logo_img = ImageTk.PhotoImage(img)
     

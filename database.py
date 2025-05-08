@@ -201,8 +201,8 @@ def search_samples(conn, search_text):
         FROM numuneler
         WHERE kod LIKE ?
            OR ad LIKE ?
-                OR proje_adi LIKE ?
-    ''', (f"%{search_text}%", f"%{search_text}%"), f"%{search_text}%")
+           OR proje_adi LIKE ?
+    ''', (f"%{search_text}%", f"%{search_text}%", f"%{search_text}%"))
     return cursor.fetchall()
 
 
