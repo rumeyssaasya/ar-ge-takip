@@ -309,11 +309,10 @@ class MalzemeTakipApp:
 
         pdf = FPDF()
         pdf.add_page()
-        pdf.set_font("Arial", style='B', size=20)
+        pdf.set_font("Arial", style='B', size=16)
         pdf.cell(w=0, h=10, txt="Malzemeler Listesi", ln=True, align='C')
         pdf.ln(10)
         pdf.set_font("Arial", size=10)
-        pdf.set_font("Arial", style='B', size=12)
         headers = ["Kod", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Firma"]
         column_widths = [30, 30, 25, 25, 15, 30, 30]
         pdf.set_font("Arial", size=10)

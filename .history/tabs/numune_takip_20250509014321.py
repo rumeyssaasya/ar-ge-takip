@@ -340,7 +340,7 @@ class NumuneTakipApp:
         pdf.ln(10)
 
         headers = ["Kod","Proje Adi", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Yer"]
-        column_widths = [25, 25, 25, 25, 20, 15, 25, 25]
+        column_widths = [25, 25, 25, 25, 1, 10, 20, 20]
         pdf.set_font("Arial", size=10)
         # Başlık satırı
         for i in range(len(headers)):
@@ -370,18 +370,17 @@ class NumuneTakipApp:
 
         pdf = FPDF()
         pdf.add_page()
-        pdf.set_font("Arial", style='B', size=20)
+        pdf.set_font("Arial", style='B', size=16)
         pdf.cell(w=0, h=10, txt="Numune Listesi", ln=True, align='C')
         pdf.ln(10)
-        
-        headers = ["Kod","Proje Adi", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Yer"]
-        column_widths = [25, 25, 25, 25, 20, 15, 25, 25]
 
-        pdf.set_font("Arial", style='B',size=12)
+        headers = ["Kod","Proje Adi", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Yer"]
+        column_widths = [30, 30, 30, 20, 20, 20, 30, 30]
+        pdf.set_font("Arial", size=10)
         for i in range(len(headers)):
             pdf.cell(column_widths[i], 10, headers[i], border=1, align='C')
         pdf.ln()
-        pdf.set_font("Arial", size=10)
+
         for row in samples:
             for i in range(len(row)):
                 pdf.cell(column_widths[i], 10, str(row[i]), border=1, align='C')

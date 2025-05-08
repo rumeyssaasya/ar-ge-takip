@@ -309,13 +309,12 @@ class MalzemeTakipApp:
 
         pdf = FPDF()
         pdf.add_page()
-        pdf.set_font("Arial", style='B', size=20)
+        pdf.set_font("Arial", style='B', size=16)
         pdf.cell(w=0, h=10, txt="Malzemeler Listesi", ln=True, align='C')
         pdf.ln(10)
-        pdf.set_font("Arial", size=10)
-        pdf.set_font("Arial", style='B', size=12)
+
         headers = ["Kod", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Firma"]
-        column_widths = [30, 30, 25, 25, 15, 30, 30]
+        column_widths = [30, 40, 20, 20, 20, 30, 40]
         pdf.set_font("Arial", size=10)
         for i in range(len(headers)):
             pdf.cell(column_widths[i], 10, headers[i], border=1, align='C')
@@ -334,7 +333,7 @@ class MalzemeTakipApp:
         if not file_path:
             return
 
-        materials = get_all_materials()
+        materials = get_all_materials(self.conn)
         if not materials:
             messagebox.showinfo("Bilgi", "Veritabanında kayıtlı malzeme bulunamadı!")
             return
@@ -344,10 +343,9 @@ class MalzemeTakipApp:
         pdf.set_font("Arial", style='B', size=16)
         pdf.cell(w=0, h=10, txt="Malzeme Listesi", ln=True, align='C')
         pdf.ln(10)
-        pdf.set_font("Arial", size=10)
+
         headers = ["Kod", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Firma"]
-        column_widths = [30, 30, 25, 25, 15, 30, 30]
-        
+        column_widths = [30, 40, 20, 20, 20, 30, 40]
         pdf.set_font("Arial", size=10)
         for i in range(len(headers)):
             pdf.cell(column_widths[i], 10, headers[i], border=1, align='C')

@@ -273,14 +273,14 @@ class DemirbasTakipApp:
 
         pdf = FPDF()
         pdf.add_page()
-        pdf.set_font("Arial", style='B', size=20)
+        pdf.set_font("Arial", style='B', size=16)
         pdf.cell(w=0, h=10, txt="Demirbas Listesi", ln=True, align='C')
         pdf.ln(10)
-        pdf.set_font("Arial", style='B', size=12)
+
         # Sütun başlıkları
         headers = ["Kod", "Ad", "Marka", "Alim Tarihi", "Durum"]
-        col_widths = [40, 40, 40, 40, 25]  # 5 sütun için
-        pdf.set_font("Arial", size=10)
+        col_widths = [30, 50, 40, 40, 30]  # 5 sütun için
+
         # Başlık satırı
         for i in range(len(headers)):
             pdf.cell(col_widths[i], 10, headers[i], border=1, align='C')
@@ -308,10 +308,10 @@ class DemirbasTakipApp:
 
         pdf = FPDF()
         pdf.add_page()
-        pdf.set_font("Arial", style='B', size=20)
+        pdf.set_font("Arial", style='B', size=16)
         pdf.cell(w=0, h=10, txt="Demirbas Listesi", ln=True, align='C')
         pdf.ln(10)
-        pdf.set_font("Arial", style='B', size=12)
+
         headers = ["Kod", "Ad", "Marka", "Alim Tarihi", "Durum"]
         column_widths = [40, 40, 40, 40, 25]
         pdf.set_font("Arial", size=10)

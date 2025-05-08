@@ -370,7 +370,7 @@ class NumuneTakipApp:
 
         pdf = FPDF()
         pdf.add_page()
-        pdf.set_font("Arial", style='B', size=20)
+        pdf.set_font("Arial", style='B', size=16)
         pdf.cell(w=0, h=10, txt="Numune Listesi", ln=True, align='C')
         pdf.ln(10)
         
