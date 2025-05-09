@@ -335,10 +335,10 @@ class NumuneTakipApp:
 
         pdf = FPDF()
         pdf.add_page()
-        pdf.set_font("Arial", style='B', size=20)
+        pdf.set_font("Arial", style='B', size=16)
         pdf.cell(w=0, h=10, txt="Numune Listesi", ln=True, align='C')
         pdf.ln(10)
-        pdf.set_font("Arial",style='B', size=12)
+
         headers = ["Kod","Proje Adi", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Yer"]
         column_widths = [30, 35, 35, 15, 15, 10, 20, 30]
         pdf.set_font("Arial", size=10)
@@ -373,11 +373,11 @@ class NumuneTakipApp:
         pdf.set_font("Arial", style='B', size=20)
         pdf.cell(w=0, h=10, txt="Numune Listesi", ln=True, align='C')
         pdf.ln(10)
-        pdf.set_font("Arial", style='B',size=12)
+        
         headers = ["Kod","Proje Adi", "Ad", "Raf", "Miktar", "Birim", "Tarih", "Yer"]
         column_widths = [30, 35, 35, 15, 15, 10, 20, 30]
 
-        pdf.set_font("Arial", size=10)
+        pdf.set_font("Arial", style='B',size=12)
         for i in range(len(headers)):
             pdf.cell(column_widths[i], 10, headers[i], border=1, align='C')
         pdf.ln()
@@ -402,7 +402,8 @@ class NumuneTakipApp:
             messagebox.showinfo("Bilgi", "Veritabanında numune bulunamadı!")
 
     def detay_goster(self):
-        DOSYA_KLASORU = r"Y:\Uniteler\ARGE\Ar-Ge Envanter Takip Sistemi\Numuneler"
+        DOSYA_KLASORU = rC:\Users\aciog\Desktop\proje" 
+        # Y:\Uniteler\ARGE\Ar-Ge Envanter Takip Sistemi\Numuneler"
         secilen = self.tree.focus()
         if not secilen:
             messagebox.showwarning("Uyarı", "Lütfen bir satır seçin.")

@@ -279,7 +279,7 @@ class DemirbasTakipApp:
         pdf.set_font("Arial", style='B', size=12)
         # Sütun başlıkları
         headers = ["Kod", "Ad", "Marka", "Alim Tarihi", "Durum"]
-        col_widths = [40, 50, 45, 30, 25]  
+        col_widths = [40, 40, 40, 40, 25]  # 5 sütun için
         pdf.set_font("Arial", size=10)
         # Başlık satırı
         for i in range(len(headers)):
@@ -313,7 +313,7 @@ class DemirbasTakipApp:
         pdf.ln(10)
         pdf.set_font("Arial", style='B', size=12)
         headers = ["Kod", "Ad", "Marka", "Alim Tarihi", "Durum"]
-        column_widths = [40, 50, 45, 30, 25]
+        column_widths = [40, 40, 40, 40, 25]
         pdf.set_font("Arial", size=10)
         for i in range(len(headers)):
             pdf.cell(column_widths[i], 10, headers[i], border=1, align='C')
